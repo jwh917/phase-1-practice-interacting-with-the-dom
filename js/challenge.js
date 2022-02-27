@@ -1,9 +1,12 @@
 
 const counterId = document.getElementById("counter")
 let count = 0
+let intervalId
+const setOfLikes = {}
+
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    let counter = setInterval( function(){
+    intervalId = setInterval( function(){
         count += 1
         counterId.innerText = count
     }, 1000)
@@ -24,20 +27,20 @@ plusButton.addEventListener('click', (event) => {
 });
 
 const likeButton = document.getElementById("heart")
-let x = 0
 
 
 likeButton.addEventListener('click', (event) => {
+    let x = 0 
+    //x ++
     const listLikes = document.querySelector(".likes")
     const li = document.createElement("li")
     let screenNum = parseInt(counterId.innerText)
     
-
-    //screenNum === screenNum
-    //counterId.innerText === counterId.innerText
-    //parseInt(counterId.innerText) === parseInt(counterId.innerText)
-    if (screenNum === 0) {
-        x = x + 1
+    let key = count
+    //setOfLikes[key] = x+=1
+    
+    if (setOfLikes[key] === setOfLikes[key]) {
+        setOfLikes[key] = x+=1
         const textNode = document.createTextNode(screenNum + " has been liked " + x + " times")
         li.appendChild(textNode)
         listLikes.appendChild(li)
@@ -53,6 +56,18 @@ likeButton.addEventListener('click', (event) => {
 const pauseButton = document.getElementById("pause")
 
 pauseButton.addEventListener('click', (event) => {
-    clearInterval(counter)
-});
+    clearInterval(intervalId)
+    minusButton.disabled
+    plusButton.disabled
+    likeButton.disabled
+    submitButton.disabled
+    
+
+
+
+})
+
+const submitButton = document.getElementById("submit")
+
+
 
