@@ -4,12 +4,15 @@ let count = 0
 let intervalId
 const setOfLikes = {}
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
+function counterFun(){
     intervalId = setInterval( function(){
         count += 1
         counterId.innerText = count
     }, 1000)
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    counterFun()
 });
 
 const minusButton = document.getElementById("minus")
@@ -27,7 +30,6 @@ plusButton.addEventListener('click', (event) => {
 });
 
 const likeButton = document.getElementById("heart")
-
 let x = 0 
 
 likeButton.addEventListener('click', (event) => {
@@ -53,60 +55,34 @@ likeButton.addEventListener('click', (event) => {
 })
 
 const pauseButton = document.getElementById("pause")
-const submitButton = document.getElementById("submit")
-//const resumeButton = document.getElementById("resume")
-
+let pause = false
 
 pauseButton.addEventListener('click', (event) => {
+    pause = !pause 
     clearInterval(intervalId)
     minusButton.disabled = true
     plusButton.disabled = true
     likeButton.disabled = true
     submitButton.disabled = true  
-    pauseButton.id = "resume"
     pauseButton.innerHTML = "resume"
 
-    //maybe if 
-    // setInterval( function(){
-    //     count += 1
-    //     counterId.innerText = count
-    // }, 1000)
-    // minusButton.disabled = false
-    // plusButton.disabled = false
-    // likeButton.disabled = false
-    // submitButton.disabled = false
-    // pauseButton.id = "pause"
-    // pauseButton.innerHTML = "pause"
-    
+    if(!pause)
+    {
+        minusButton.disabled = false
+        plusButton.disabled = false
+        likeButton.disabled = false
+        submitButton.disabled = false
+        counterFun()
 
+}
 })
-
-
-// resumeButton.addEventListener('click', (event) => {
-//     setInterval( function(){
-//         count += 1
-//         counterId.innerText = count
-//     }, 1000)
-//     minusButton.disabled = false
-//     plusButton.disabled = false
-//     likeButton.disabled = false
-//     submitButton.disabled = false
-//     resumeButton.id = "pause"
-//     pauseButton.innerHTML = "pause"
-    
-
-// })
 
 const restartButton = document.getElementById("restart")
 
-// repeated click makes it go faster ?
 restartButton.addEventListener('click', (event) => {
     count = -1
     clearInterval(intervalId)
-    setInterval( function(){
-        count += 1
-        counterId.innerText = count
-    }, 1000)
+    counterFun()
     minusButton.disabled = false
     plusButton.disabled = false
     likeButton.disabled = false
@@ -114,24 +90,20 @@ restartButton.addEventListener('click', (event) => {
     
 })
 
-//how to get extra space ?
+const submitButton = document.getElementById("submit")
 
 submitButton.addEventListener('click', (event) => {
     event.preventDefault()
     let commentsArea = document.querySelector(".comments")
     let commentBoxValue = document.getElementById("comment-input").value
+    const p = document.createElement("p")
     let pageComments = document.createTextNode(commentBoxValue)
+    p.appendChild(pageComments)
     let br = document.createElement("br")
     if(document.getElementById("comment-input").value !== " "){
-        commentsArea.appendChild(pageComments)
-        commentsArea.appendChild(br)
-        commentsArea.appendChild(br);
+        commentsArea.appendChild(p)
         document.getElementById("comment-input").value = " "
     }
-    else{
-
-    }
-
 })
 
 
